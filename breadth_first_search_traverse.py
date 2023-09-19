@@ -20,7 +20,8 @@ def breadth_first_search(input_dictionary, start_node):
                 queue.append(i)
     return visited
 
+
 if __name__ == "__main__":
 
     starting_node = "D"
-    print(breadth_first_search(package_to_dict(read_json_file("package.JSON")), starting_node))
+    print(breadth_first_search(package_to_dict(read_json_file()), starting_node))

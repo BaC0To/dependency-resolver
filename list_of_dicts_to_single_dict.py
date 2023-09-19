@@ -14,5 +14,6 @@ def package_to_dict(json_data_in):
         
     return dict(zip(keys_list, values_list))# create new simple dict from keys/values_list
 
-#if __name__ == "__main__":
-    #print(package_to_dict(read_json_file("package.JSON")))
+""" if __name__ == "__main__":
+    print(package_to_dict(read_json_file()))
+ """
