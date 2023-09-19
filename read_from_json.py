@@ -7,10 +7,9 @@ def read_json_file():
     param: filename
     return: data:dict
     """
-    with open(json_location_finder(".JSON"), "r") as source:
+    with open(json_location_finder(),"r") as source:
         return json.load(source)
 
 
-""" if __name__ == "__main__":
+if __name__ == "__main__":
     print(read_json_file())
- """
