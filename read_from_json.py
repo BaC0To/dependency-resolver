@@ -9,5 +9,5 @@ def read_json_file(filename):
     with Path(filename).open("r") as source:
         return json.load(source)
 
-#if __name__ == '__main__':
+#if __name__ == "__main__":
     #print(read_json_file("package.JSON"))
