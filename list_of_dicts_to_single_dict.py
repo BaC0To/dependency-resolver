@@ -1,11 +1,22 @@
-from read_from_json import read_json_file
-       
+import json
+import os
+from pathlib import Path
+
+
+REPO_ROOT = Path(os.getcwd())
+CONFIG_DIR = Path("config_files")
+JSON_FILE_PATH = os.path.join(REPO_ROOT, CONFIG_DIR, "package.JSON")
+
+
+with open(JSON_FILE_PATH,"r") as source:
+    data_json = json.load(source)
+    
+#print(data_json)
+list_dict_values = data_json["packages"]
+#print(list_dict_values)
 
 def package_to_dict(json_data_in):
-    """Function to convert all json data to a single dictionary
-    param: json_data_in as dict
-    return: dict
-    """
+    
     keys_list = []
     values_list = []
 
@@ -16,4 +27,6 @@ def package_to_dict(json_data_in):
     return dict(zip(keys_list, values_list))# create new simple dict from keys/values_list
 
 if __name__ == "__main__":
-    print(package_to_dict(read_json_file()))
+    
+    print(package_to_dict(data_json))
+
