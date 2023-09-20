@@ -10,15 +10,7 @@ JSON_FILE_PATH = os.path.join(REPO_ROOT, CONFIG_DIR, "package.JSON")
 
 with open(JSON_FILE_PATH,"r") as source:
     data_json = json.load(source)
-    
-#print(data_json)
-list_dict_values = data_json["packages"]
-#print(list_dict_values)
 
-""" for i in list_dict_values:
-    print(i.keys())
-    print(i.values())
-    print(f"Dict key: {list(i.values())[0]} and resp. value: {list(i.values())[1]}") """
 
 def bfs_search(start_node):
     """Function that keeps appending the visited and queued nodes usign BFS algorithm
@@ -26,28 +18,50 @@ def bfs_search(start_node):
     return : all visited nodes with their dependancies: list
     """
      # declare empty list to store visited nodes
-    visited=[]
+    visited_from_bfs=[]
      # declare empty list to store nodes in the queue
     queue=[]
-    visited.append(start_node)
+    visited_from_bfs.append(start_node)
     queue.append(start_node)
     
     while queue:
         item = queue.pop(0)
-         # i == current dict from list dict
-        for i in list_dict_values:
+         # i == current dict from list dict == data_json["packages"]
+        for i in data_json["packages"]:
             #check if current dict has a key <item>
             if item == list(i.values())[0]: 
-                #vals = list(i.values())[1]
+                #queue = list(i.values())[1]
                 for j in list(i.values())[1]:
-                    if j not in visited:
-                        visited.append(j)
+                    if j not in visited_from_bfs:
+                        visited_from_bfs.append(j)
                         queue.append(j)
-    return visited
+    return visited_from_bfs
+
+
+visited_from_dfs = [] # declare empty list to store visited nodes
+
+
+def dfs_search(visited, node): 
+    """Function that keeps appending the visited nodes and their neighbours in DFS algorithm
+    params : start_node: str
+    return : all visited nodes with their dependancies: list
+    """
+    for i in data_json["packages"]:
+            
+            #checks if current dict has a key <item>
+            if node == list(i.values())[0]:
+                 # checks if the current node is unvisited - if yes, it is appended in the visited set.
+                 if node not in visited_from_dfs:
+                    visited_from_dfs.append(node)
+                    #for each neighbor == list(i.values())[1] of the current node, the dfs function is invoked again
+                    for j in list(i.values())[1]:
+                        dfs_search(visited_from_dfs, j)
+
+    return visited_from_dfs
 
 
 if __name__ == "__main__":
 
-    starting_node = "C"
-    print(bfs_search(starting_node))
-    #print(data_json)
+    starting_node = "A"
+    #print(f"Tree traversal using the \"BFS algorithm\": {bfs_search(starting_node)}")
+    print(f"Tree traversal using the \"DFS algorithm\": {dfs_search([], starting_node)}")
